@@ -16,6 +16,22 @@ class MovieFinder extends React.Component {
 
   handleSubmit(event) {
     event.preventDefault();
+    let { searchTerm } = this.state;
+    searchTerm = searchTerm.trim();
+    if (!searchTerm) {
+      return;
+    }
+
+    fetch(`https://www.omdbapi.com/?s=${searchTerm}&apikey=9e3e9389`).then((response) => {
+      if (response.ok) {
+        return response.json();
+      }
+      throw new Error('Request was either a 404 or 500');
+    }).then((data) => {
+      console.log(data);
+    }).catch((error) => {
+      console.log(error);
+    });
   }
 
   render() {
