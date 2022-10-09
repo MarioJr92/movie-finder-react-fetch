@@ -63,7 +63,7 @@ class MovieFinder extends React.Component {
   }
 
   render() {
-    const { searchTerm, results } = this.state;
+    const { searchTerm, results, error } = this.state;
 
     return (
       <div className="container">
@@ -79,9 +79,14 @@ class MovieFinder extends React.Component {
               />
               <button type="submit" className="btn btn-primary">Submit</button>
             </form>
-            {results.map((movie) => {
-              return <Movie key={movie.imdbID} movie={movie} />;
-            })}
+            {(() => {
+              if (error) {
+                return error;
+              }
+              return results.map((movie) => {
+                return <Movie key={movie.imdbID} movie={movie} />;
+              })
+            })()}
           </div>
         </div>
       </div>
